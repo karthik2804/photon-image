@@ -1,0 +1,19 @@
+spin_manifest_version = 2
+
+[application]
+name = "photon-image"
+version = "0.1.0"
+authors = ["karthik2804 <karthik.ganeshram@fermyon.com>"]
+description = ""
+
+[[trigger.http]]
+route = "/..."
+component = "photon-image"
+
+[component.photon-image]
+source = "target/wasm32-wasi/release/photon_image.wasm"
+allowed_outbound_hosts = []
+files = [{ source = "images/", destination = "/" }]
+[component.photon-image.build]
+command = "cargo build --target wasm32-wasi --release"
+watch = ["src/**/*.rs", "Cargo.toml"]
