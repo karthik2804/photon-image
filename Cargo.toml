@@ -10,7 +10,7 @@ crate-type = ["cdylib"]
 
 [dependencies]
 anyhow = "1"
-photon-rs = { version = "0.3.2", default-features = false }
+photon-rs = { git = "https://github.com/karthik2804/photon", branch = "wasi_feature_gating", default-features = false }
 spin-sdk = "3.0.0"
 
 [workspace]
