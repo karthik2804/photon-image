@@ -12,5 +12,6 @@ crate-type = ["cdylib"]
 anyhow = "1"
 photon-rs = { git = "https://github.com/karthik2804/photon", branch = "wasi_feature_gating", default-features = false }
 spin-sdk = "3.0.0"
+url = "2.5.2"
 
 [workspace]
