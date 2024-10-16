@@ -7,14 +7,12 @@ extern crate url;
 use std::str::FromStr;
 use url::Url;
 
-use photon_rs::filters;
 use photon_rs::native::open_image;
 
 /// A simple Spin HTTP component.
 #[http_component]
 fn handle_photon_image(req: Request) -> anyhow::Result<impl IntoResponse> {
-    let url = req.uri();
-    let parsed_url = Url::parse(&url)?;
+    let parsed_url = Url::parse("http://fake.com").unwrap().join(req.uri())?;
 
     // Extract query parameters using `url::Url`
     let width = parsed_url
@@ -29,10 +27,10 @@ fn handle_photon_image(req: Request) -> anyhow::Result<impl IntoResponse> {
     let mut img = open_image("image.jpg").expect("File should open");
 
     if let (Some(w), Some(h)) = (width, height) {
-        img = resize(&img, w, h, photon_rs::transform::SamplingFilter::Nearest);
+        img = resize(&img, w, h, photon_rs::transform::SamplingFilter::Gaussian);
     }
 
-    let bytes = img.get_bytes_jpeg(255);
+    let bytes = img.get_bytes_jpeg(75);
 
     Ok(Response::builder()
         .status(200)
